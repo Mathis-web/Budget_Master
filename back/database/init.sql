@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS expense (
 CREATE TABLE IF NOT EXISTS token (
     id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name text NOT NULL,
-    user_id int NOT NULL REFERENCES "user" (id) ON DELETE CASCADE, 
+    user_id int NOT NULL UNIQUE REFERENCES "user" (id) ON DELETE CASCADE, 
     created_at timestamptz NOT NULL DEFAULT NOW(),
     updated_at timestamptz DEFAULT NULL
 );
@@ -72,5 +72,6 @@ VALUES
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO budget_master;
 
 ALTER TABLE "user" RENAME CONSTRAINT "user_email_key" TO "user_email_unique";
+ALTER TABLE "token" RENAME CONSTRAINT "token_user_id_key" TO "token_user_id_unique";
 
 COMMIT; /* end the transaction */
