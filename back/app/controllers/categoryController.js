@@ -3,6 +3,7 @@ const Category = require('../models/Category');
 const categoryController = {
     async createOne(req, res, next) {
         try {
+            req.body.userId = req.user.id;
             const category = new Category(req.body);
             const categoryInfos = await category.save();
             res.status(200).send(categoryInfos);
