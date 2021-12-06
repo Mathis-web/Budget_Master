@@ -1,6 +1,6 @@
 BEGIN; /* start a transaction */
 
-DROP TABLE IF EXISTS "user", category, expense;
+DROP TABLE IF EXISTS "user", category, expense, token;
 
 DROP DOMAIN IF EXISTS email;
 /* create a specific type in order to check that the data is a valid email */
@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS category (
     name text NOT NULL,
     created_at timestamptz NOT NULL DEFAULT NOW(),
     updated_at timestamptz DEFAULT NULL,
-    user_id int REFERENCES "user" (id) ON DELETE CASCADE
+    user_id int NOT NULL REFERENCES "user" (id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS expense (
@@ -29,7 +29,15 @@ CREATE TABLE IF NOT EXISTS expense (
     price real NOT NULL,
     created_at timestamptz NOT NULL DEFAULT NOW(),
     updated_at timestamptz DEFAULT NULL,
-    category_id int REFERENCES category (id) ON DELETE CASCADE
+    category_id int NOT NULL REFERENCES category (id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS token (
+    id int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name text NOT NULL,
+    user_id int NOT NULL REFERENCES "user" (id) ON DELETE CASCADE, 
+    created_at timestamptz NOT NULL DEFAULT NOW(),
+    updated_at timestamptz DEFAULT NULL
 );
 
 INSERT INTO "user" (email, password)
