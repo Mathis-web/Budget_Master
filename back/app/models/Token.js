@@ -27,12 +27,26 @@ class Token {
     }
 
     async save() {
-            const query = {
-                text: `INSERT INTO token (name, user_id) VALUES ($1, $2) RETURNING name`,
-                values: [this.name, this.userId]
+            try {
+                const selectQuery = {
+                    text: 'SELECT * FROM token WHERE user_id = $1',
+                    values: [this.userId]
+                };
+                const insertQuery = {
+                    text: `INSERT INTO token (name, user_id) VALUES ($1, $2) RETURNING name`,
+                    values: [this.name, this.userId]
+                };
+                // check if the token already exists
+                const {rows: token} = await db.query(selectQuery);
+                if(!token[0]) {
+                    const {rows} = await db.query(insertQuery);
+                    return new Token(rows[0]);
+                }
+                return new Token(token[0]);
+            } catch (error) {
+                if(error.constraint === 'token_user_id_unique') throw new ErrorHandler(500, 'Already connected.');
+                throw error;
             }
-            const {rows: token } = await db.query(query);
-            return new Token(token[0]);
     }
 
     async checkIfExists() {
