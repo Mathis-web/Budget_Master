@@ -11,6 +11,16 @@ const tokenController = {
         } catch (error) {
             next(error);
         }
+    },
+
+    async deleteOne(req, res, next) {
+        try {
+            const token = new Token({userId: req.user.id});
+            await token.delete();
+            res.status(200).send('Votre compte a bien été supprimé.');
+        } catch (error) {
+            next(error)
+        }
     }
 }
 
