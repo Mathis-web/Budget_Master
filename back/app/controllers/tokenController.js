@@ -17,7 +17,9 @@ const tokenController = {
         try {
             const token = new Token({userId: req.user.id});
             await token.delete();
-            res.status(200).send('Votre compte a bien été supprimé.');
+            res.clearCookie('accessToken');
+            res.clearCookie('refreshToken');
+            res.status(200).send('Vous êtes déconnecté.');
         } catch (error) {
             next(error)
         }

@@ -1,8 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 const authenticateAccessToken = (req, res, next) => {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
+    const token = req.cookies.accessToken;
     if(!token) return res.status(401).send('Not connected.');
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user ) => {
         if(err) return res.status(403).send('Invallid token');
@@ -12,8 +11,7 @@ const authenticateAccessToken = (req, res, next) => {
 }
 
 const authenticateRefreshToken = (req, res, next) => {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
+    const token = req.cookies.refreshToken;
     if(!token) return res.status(401).send('Not connected.');
     jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, (err, user ) => {
         if(err) return res.status(403).send('Invalid token');

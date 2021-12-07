@@ -33,8 +33,10 @@ const userController = {
             });
             const refreshTokenInfos = await refreshToken.save();
             // 3: send back access and refresh token to the client
-            // access token (short expiration date) = use to access main features of the api (create category...)
+            // access token (short expiration date) = use to access main features of the api (create category...);
             // refresh token = use to create a new access token
+            res.cookie('accessToken', accessToken, {httpOnly: true, maxAge: 2629800000});
+            res.cookie('refreshToken', refreshTokenInfos.name, {httpOnly: true, maxAge: 2629800000});
             res.status(200).send({accessToken, refreshToken: refreshTokenInfos.name});
         } catch (error) {
             next(error)
