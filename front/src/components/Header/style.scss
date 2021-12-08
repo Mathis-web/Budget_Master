@@ -8,11 +8,11 @@
     &__left-container {
         display: flex;
         align-items: center;
-        flex: 30%;
+        flex: 50%;
     }
     
     &__right-container {
-        flex: 70%;
+        flex: 50%;
     }
 
     &__logo {
@@ -50,7 +50,6 @@
                 transition: 0.3s;
             }
 
-
             &:hover::after {
                 width: 100%;
             }
@@ -60,7 +59,6 @@
     &__title {
         color: v.$whiteColor;
         font-size: 2rem;
-        // padding: 1.5 * v.$gutter;
         font-weight: bold;
     }
 }
