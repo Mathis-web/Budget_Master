@@ -1,0 +1,31 @@
+@use '../../styles/vars' as v;
+
+.home {
+    display: flex;
+    flex: 1;
+
+    &__description {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 50%;
+        padding: v.$gutter;
+        background-color: v.$lightColor;
+
+        &__text {
+            line-height: 1.2;
+            margin-bottom: 2rem;
+        }
+
+        &__list {
+            &__step {
+                margin-bottom: v.$gutter * 0.5;
+            }
+        }
+    }
+
+    &__slides {
+        width: 50%;
+        padding: v.$gutter * 0.5;
+    }
+}

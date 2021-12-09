@@ -4,15 +4,18 @@
     background-color: v.$blueColor;
     display: flex;
     padding: v.$gutter * 1.3;
-    
+
     &__left-container {
-        display: flex;
-        align-items: center;
-        flex: 50%;
+        flex-basis: content;
+
+        &__sitename {
+            display: flex;
+            align-items: center;
+        }
     }
     
     &__right-container {
-        flex: 50%;
+        flex: auto;
     }
 
     &__logo {
@@ -20,10 +23,6 @@
         font-weight: bold;
         color: v.$lightColor;
         margin-right: 0.5rem;
-    }
-
-    & nav {
-        height: 100%;
     }
     
     &__nav {
@@ -34,6 +33,7 @@
 
         &__li {
             color: v.$whiteColor;
+            text-decoration: none;
             font-size: 1.1rem;
             cursor: pointer;
             position: relative;
@@ -50,6 +50,9 @@
                 transition: 0.3s;
             }
 
+            &:hover {
+                color: v.$lightColor;
+            }
             &:hover::after {
                 width: 100%;
             }

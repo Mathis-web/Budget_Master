@@ -1,0 +1,46 @@
+@use '../../styles/vars' as v;
+
+.connexion {
+    margin: 0 auto;
+    background-color: v.$lightColor;
+    flex: 1;
+    width: 100%;
+
+    &__title {
+        font-weight: bold;
+        font-size: 2rem;
+        color: v.$blueColor;
+        text-align: center;
+        text-transform: uppercase;
+        margin: v.$gutter * 2 0 v.$gutter 0 !important;
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        min-width: 250px;
+        width: 40%;
+        margin: 0 auto;
+
+        &__signup {
+            margin-bottom: v.$gutter;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            &__button {
+                color: v.$blueColor;
+                display: block;
+                width: fit-content;
+                font-weight: bold;
+                font-size: .8rem;
+                border-radius: 10px;
+                margin-top: .5rem;
+                text-decoration: none;
+                padding: 0.5rem 0.7rem;
+                text-transform: uppercase;
+                background-color: v.$otherColor;
+            }
+        }
+    }
+}

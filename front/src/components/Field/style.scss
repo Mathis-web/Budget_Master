@@ -1,0 +1,12 @@
+@use '../../styles/vars' as v;
+
+.form-input {
+    border: 1px solid v.$blueColor;
+    font-size: 1rem;
+    padding: 0.8rem;
+    margin: 0.5rem 0;
+
+    &::placeholder {
+        font-size: 1rem;
+    }
+}
