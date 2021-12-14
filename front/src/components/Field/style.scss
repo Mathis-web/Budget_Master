@@ -2,9 +2,10 @@
 
 .form-input {
     border: 1px solid v.$blueColor;
+    border-radius: 4px;
     font-size: 1rem;
-    padding: 0.8rem;
-    margin: 0.5rem 0;
+    padding: 0.7rem 0.8rem;
+    margin: 0.4rem 0;
 
     &::placeholder {
         font-size: 1rem;
