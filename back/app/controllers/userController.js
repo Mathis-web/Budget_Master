@@ -51,6 +51,15 @@ const userController = {
         } catch (error) {
             next(new ErrorHandler(500, 'Une erreur est survenue lors de la récupération de vos dépenses. Veuillez réessayer.'));
         }
+    },
+
+    isLoggedIn(req, res, next) {
+        // check if there is a cookie in the request, if yes it means that the user is logged in
+        if (req.cookies.refreshToken && req.cookies.accessToken) {
+            res.status(200).json(true);
+        } else {
+            res.status(200).json(false);
+        }
     }
 }
 
