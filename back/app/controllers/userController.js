@@ -1,6 +1,6 @@
 const User = require('../models/User');
 const Token = require('../models/Token');
-const jwt = require('jsonwebtoken');
+const ErrorHandler = require('../error/ErrorHandler');
 
 const { generateAccessToken, generateRefreshToken } = require('../services/generateToken');
 
@@ -41,7 +41,17 @@ const userController = {
         } catch (error) {
             next(error)
         }
-    } 
+    },
+
+    async getUserData(req, res, next) {
+        try {
+            const user = new User({id: req.user.id});
+            const data = await user.data();
+            res.status(200).json(data);
+        } catch (error) {
+            next(new ErrorHandler(500, 'Une erreur est survenue lors de la récupération de vos dépenses. Veuillez réessayer.'));
+        }
+    }
 }
 
 module.exports = userController;

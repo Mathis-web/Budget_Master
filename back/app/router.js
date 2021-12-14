@@ -12,7 +12,8 @@ const {authenticateAccessToken, authenticateRefreshToken} = require('./middlewar
 
 router.post('/api/signup', userController.signup);
 router.post('/api/login', userController.login);
-router.delete('/api/logout', authenticateAccessToken, tokenController.deleteOne)
+router.get('/api/getall', authenticateAccessToken, userController.getUserData);
+router.delete('/api/logout', authenticateAccessToken, tokenController.deleteOne);
 
 router.post('/api/category', authenticateAccessToken, categoryController.createOne);
 router.patch('/api/category', authenticateAccessToken, categoryController.updateOne);

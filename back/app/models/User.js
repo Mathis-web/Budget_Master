@@ -69,6 +69,27 @@ class User {
 
         throw new ErrorHandler(500, 'Mauvais email ou mot de passe.');
     };
+
+    async data() {
+        const query = {
+            text: `
+                SELECT 
+                    category.id AS categoryId,
+                    category.name, 
+                    expense.id AS expenseId,
+                    expense.description,
+                    expense.price,
+                    expense.created_at AS createdAt
+                FROM category
+                JOIN "user" ON "user".id = category.user_id
+                JOIN expense ON category.id = expense.category_id
+                WHERE "user".id = $1;
+                `,
+            values: [this.id]
+        };
+        const { rows } = await db.query(query);
+        return rows;
+    };
 }
 
 module.exports = User;
