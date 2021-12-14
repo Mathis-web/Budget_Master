@@ -26,11 +26,23 @@ class User {
     async save() {
         try {
             this.password = await hashPassword(this.password);
-            const query = {
+            const insertUserQuery = {
                 text: `INSERT INTO "user" (email, password) VALUES ($1, $2) RETURNING id`,
                 values: [this.email, this.password]
             }
-            await db.query(query);
+            const {rows: user} = await db.query(insertUserQuery);
+            // attached some data to the user so his dashboard wont be empty on his first connexion
+            const {rows: vetements} = await db.query(`INSERT INTO category (name, user_id) VALUES ('vêtements', ${user[0].id}) RETURNING id`);
+            const {rows: nourriture} = await db.query(`INSERT INTO category (name, user_id) VALUES ('nourriture', ${user[0].id}) RETURNING id`);
+
+            await db.query(`
+                INSERT INTO expense (description, price, category_id) VALUES 
+                    ('t-shirt nike', 20, ${vetements[0].id}),
+                    ('achat de 2 jeans', 28, ${vetements[0].id});
+                INSERT INTO expense (description, price, category_id) VALUES
+                    ('apero soirée entre amis', 16, ${nourriture[0].id}),
+                    ('fruits et légumes carrefour', 12, ${nourriture[0].id});
+            `);
         } catch (error) {
             if(error.constraint === 'email_check') {
                 throw new ErrorHandler(500, 'Format d\'email non valide.');
