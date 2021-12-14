@@ -7,7 +7,13 @@ const PORT = process.env.PORT || 4000;
 
 const router = require('./app/router');
 
-app.use(cors());
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    optionsSuccessStatus: 200,
+    credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
 app.use(router);
