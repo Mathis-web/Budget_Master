@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import './style.scss';
 
-function Header() {
+function Header({isAuthenticated}) {
     return (
         <header className="header">
             <div className="header__left-container">
@@ -12,7 +12,13 @@ function Header() {
             </div>
             <div className="header__right-container">
                 <nav className="header__nav">
-                    <Link to="/connexion" className="header__nav__li">Se connecter</Link>
+                    {isAuthenticated
+                        ? (<>
+                            <Link to="/mesdepenses" className="header__nav__li">Mes dépenses</Link>
+                            <Link to="/" className="header__nav__li">Se déconnecter</Link>
+                        </>)
+                        : <Link to="/connexion" className="header__nav__li">Se connecter</Link>
+                    }
                 </nav>
             </div>
         </header>
