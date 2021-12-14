@@ -1,0 +1,18 @@
+.password-strength {
+    margin: 0.3rem 0;
+    &__text {
+        font-size: 0.8rem;
+        padding: 0.5rem;
+        color: white;
+        font-weight: 600;
+        &.weak {
+            background-color: lightcoral;
+        }
+        &.medium {
+            background-color: orange;
+        }
+        &.strong {
+            background-color: green;
+        }
+    }
+}

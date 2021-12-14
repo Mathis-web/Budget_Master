@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const Field = ({name, type, value, onChangeFunc, placeholder}) => {
   const handleOnChangeField = (e) => {
-    onChangeFunc(e.target.name, e.target.value)
+    onChangeFunc(e.target.name, e.target.value, e.target.form.name);
   }
   return (
     <input
@@ -14,7 +14,7 @@ const Field = ({name, type, value, onChangeFunc, placeholder}) => {
       className="form-input"
       value={value}
       onChange={handleOnChangeField}
-      required={type === 'password' ? true : false}
+      required={type === 'password' || type === 'email' ? true : false}
     />
   );
 };
