@@ -7,7 +7,8 @@ import { Header, Home, Footer, Login, Signup, Message } from '../index';
 
 import authService from '../../services/authService';
 import validator from '../../helpers/validator';
-import {MessageError, MessageSuccess} from "../../helpers/message";
+import { toast } from 'react-toastify';
+// import {MessageError, MessageSuccess} from "../../helpers/message";
 
 function App() {
   const userInputInitialState = {
@@ -23,16 +24,16 @@ function App() {
   }
   const [userInput, setUserInput] = useState(userInputInitialState);
   const [isLoading, setIsLoading] = useState(false);
-  const [message, setMessage] = useState({});
+  // const [message, setMessage] = useState({});
   const [strengthPassword, setStrengthPassword] = useState('');
   // const [userInfos, setUserInfos] = useState({});
 
   const navigate = useNavigate();
   let passwordStrengthTimeout;
 
-  const messageAnimationEnd = () => {
-    setMessage({});
-  }
+  // const messageAnimationEnd = () => {
+  //   setMessage({});
+  // }
 
   const resetDefaultValues = () => {
     setUserInput(userInputInitialState);
@@ -64,11 +65,14 @@ function App() {
     authService.login(userInput.login.email, userInput.login.password)
     .then(res => {
       console.log(res);
-      setMessage(new MessageSuccess('Vous êtes connecté.'))
+      // setMessage(new MessageSuccess('Vous êtes connecté.'))
+      toast.success('Vous êtes connecté.')
     })
     .catch(err => {
-      if(err.response && err.response.data) setMessage(new MessageError(err.response.data));
-      else setMessage(new MessageError('Une erreur s\'est produite.'));
+      // if(err.response && err.response.data) setMessage(new MessageError(err.response.data));
+      if(err.response && err.response.data) toast.error(err.response.data)
+      // else setMessage(new MessageError('Une erreur s\'est produite.'));
+      else toast.error('Une erreur s\'est produite.')
     })
     .finally(() => {
       resetDefaultValues();
@@ -80,24 +84,29 @@ function App() {
     const isEmailValid = validator.email(userInput.signup.email);
     const arePasswordsEqual = validator.bothPassword(userInput.signup.password, userInput.signup.confirmPassword);
     if(!isEmailValid) {
-      setMessage(new MessageError('Format d\'email non valide.'));
+      // setMessage(new MessageError('Format d\'email non valide.'));
+      toast.error('Format d\'email non valide.')
       setIsLoading(false);  
       return;
     }
     if(!arePasswordsEqual) {
-      setMessage(new MessageError('Les mots de passes sont différents.'));
+      // setMessage(new MessageError('Les mots de passes sont différents.'));
+      toast.error('Les mots de passes sont diffférents.')
       setIsLoading(false);  
       return;
     }
     authService.register(userInput.signup.email, userInput.signup.password)
     .then(res => {
-      setMessage(new MessageSuccess('Inscription effectuée. Vous pouvez vous connecter.'));
+      // setMessage(new MessageSuccess('Inscription effectuée. Vous pouvez vous connecter.'));
+      toast.success('Inscription effectuée. Vous pouvez vous connecter.')
       navigate('/connexion', {replace: true});
 
     })
     .catch(err => {
-      if(err.response && err.response.data) setMessage(new MessageError(err.response.data));
-      else setMessage(new MessageError('Une erreur s\'est produite.'));
+      // if(err.response && err.response.data) setMessage(new MessageError(err.response.data));
+      if(err.response && err.response.data) toast.error(err.response.data)
+      // else setMessage(new MessageError('Une erreur s\'est produite.'));
+      else toast.error('Une erreur s\'est produite.')
     })
     .finally(() => {
       resetDefaultValues();
@@ -107,8 +116,7 @@ function App() {
   return (
     <div className="app">
       <Header />
-      {/* {message.text && <Message {...message} />} */}
-      <Message {...message} endAnimationFunc={messageAnimationEnd} />
+      {/* <Message {...message} endAnimationFunc={messageAnimationEnd} /> */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/connexion" element={
