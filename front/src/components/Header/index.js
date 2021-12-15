@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import './style.scss';
 
-function Header({isAuthenticated}) {
+function Header({isAuthenticated, onClickLogout}) {
     return (
         <header className="header">
             <div className="header__left-container">
@@ -15,7 +16,7 @@ function Header({isAuthenticated}) {
                     {isAuthenticated
                         ? (<>
                             <Link to="/mesdepenses" className="header__nav__li">Mes dépenses</Link>
-                            <Link to="/" className="header__nav__li">Se déconnecter</Link>
+                            <Link to="/" className="header__nav__li" onClick={onClickLogout}>Se déconnecter</Link>
                         </>)
                         : <Link to="/connexion" className="header__nav__li">Se connecter</Link>
                     }
@@ -23,6 +24,11 @@ function Header({isAuthenticated}) {
             </div>
         </header>
     );
+}
+
+Header.propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired,
+    onClickLogout: PropTypes.func.isRequired,
 }
 
 export default Header;

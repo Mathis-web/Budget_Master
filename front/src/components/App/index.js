@@ -1,14 +1,13 @@
 import './style.css';
 
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 
-import { Header, Home, Footer, Login, Signup, Message } from '../index';
+import { Header, Home, Footer, Login, Signup, Categories } from '../index';
 
 import authService from '../../services/authService';
 import validator from '../../helpers/validator';
-import { toast } from 'react-toastify';
-// import {MessageError, MessageSuccess} from "../../helpers/message";
 
 function App() {
   const userInputInitialState = {
@@ -24,21 +23,31 @@ function App() {
   }
   const [userInput, setUserInput] = useState(userInputInitialState);
   const [isLoading, setIsLoading] = useState(false);
-  // const [message, setMessage] = useState({});
   const [strengthPassword, setStrengthPassword] = useState('');
-  // const [userInfos, setUserInfos] = useState({});
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const navigate = useNavigate();
   let passwordStrengthTimeout;
 
-  // const messageAnimationEnd = () => {
-  //   setMessage({});
-  // }
+  useEffect(() => {
+    checkLoginStatus();
+  }, []);
+
+  const checkLoginStatus = async () => {
+    const response = await authService.checkIfLoggedIn();
+    setIsAuthenticated(response.data);
+  }
 
   const resetDefaultValues = () => {
     setUserInput(userInputInitialState);
     setStrengthPassword('');
     setIsLoading(false);
+  }
+
+  const handleLogout = async () => {
+    const result = await authService.logout();
+    toast.success(result);
+    setIsAuthenticated(false);
   }
 
   const onChangeInput = (name, value, form) => {
@@ -64,14 +73,12 @@ function App() {
     setIsLoading(true);
     authService.login(userInput.login.email, userInput.login.password)
     .then(res => {
-      console.log(res);
-      // setMessage(new MessageSuccess('Vous êtes connecté.'))
-      toast.success('Vous êtes connecté.')
+      setIsAuthenticated(true);
+      toast.success('Vous êtes connecté.');
+      navigate('/mesdepenses');
     })
     .catch(err => {
-      // if(err.response && err.response.data) setMessage(new MessageError(err.response.data));
       if(err.response && err.response.data) toast.error(err.response.data)
-      // else setMessage(new MessageError('Une erreur s\'est produite.'));
       else toast.error('Une erreur s\'est produite.')
     })
     .finally(() => {
@@ -84,28 +91,23 @@ function App() {
     const isEmailValid = validator.email(userInput.signup.email);
     const arePasswordsEqual = validator.bothPassword(userInput.signup.password, userInput.signup.confirmPassword);
     if(!isEmailValid) {
-      // setMessage(new MessageError('Format d\'email non valide.'));
       toast.error('Format d\'email non valide.')
       setIsLoading(false);  
       return;
     }
     if(!arePasswordsEqual) {
-      // setMessage(new MessageError('Les mots de passes sont différents.'));
       toast.error('Les mots de passes sont diffférents.')
       setIsLoading(false);  
       return;
     }
     authService.register(userInput.signup.email, userInput.signup.password)
     .then(res => {
-      // setMessage(new MessageSuccess('Inscription effectuée. Vous pouvez vous connecter.'));
       toast.success('Inscription effectuée. Vous pouvez vous connecter.')
-      navigate('/connexion', {replace: true});
+      setTimeout(() => navigate('/connexion', {replace: true}), 2000)
 
     })
     .catch(err => {
-      // if(err.response && err.response.data) setMessage(new MessageError(err.response.data));
       if(err.response && err.response.data) toast.error(err.response.data)
-      // else setMessage(new MessageError('Une erreur s\'est produite.'));
       else toast.error('Une erreur s\'est produite.')
     })
     .finally(() => {
@@ -115,8 +117,7 @@ function App() {
 
   return (
     <div className="app">
-      <Header />
-      {/* <Message {...message} endAnimationFunc={messageAnimationEnd} /> */}
+      <Header isAuthenticated={isAuthenticated} onClickLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/connexion" element={
@@ -139,6 +140,7 @@ function App() {
             strengthPassword={strengthPassword}
            />      
           } />
+          <Route path="mesdepenses" element={<Categories />} />
       </Routes>
       <Footer />
     </div>

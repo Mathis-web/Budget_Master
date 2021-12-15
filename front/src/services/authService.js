@@ -1,15 +1,25 @@
-import axios from 'axios';
+import API from '../axios';
 
 const authService = {
     async login(email, password) {
-        const result = await axios.post(`${process.env.REACT_APP_BASE_URL_API}/api/login`, {email, password});
+        const result = await API.post('/api/login', {email, password});
         return result;
     },
 
     async register(email, password) {
-        const result = await axios.post(`${process.env.REACT_APP_BASE_URL_API}/api/signup`, {email, password});
+        const result = await API.post('/api/signup', {email, password});
         return result;
     },
+
+    async checkIfLoggedIn() {
+        const result = await API.get('/api/isloggedin');
+        return result;
+    },
+
+    async logout() {
+        const result = await API.delete('/api/logout');
+        return result.data;
+    }
 };
 
 
