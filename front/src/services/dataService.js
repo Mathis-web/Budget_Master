@@ -19,6 +19,11 @@ const dataService = {
     async updateOneCategory(id, name) {
         const result = await API.patch(`${process.env.REACT_APP_BASE_URL_API}/api/category`, {id, name});
         return result.data;
+    },
+
+    async createOneCategory(name) {
+        const result = await API.post(`${process.env.REACT_APP_BASE_URL_API}/api/category`, {name});
+        return result.data;
     }
 }
 

@@ -8,8 +8,8 @@ import Field from './Field';
 import PasswordStrength from './PasswordStrength';
 import Categories from './Categories';
 import Loading from './Loading';
-import Modal from './Modal';
-import UpdateModal from './Modal/UpdateModal';
+import ConfirmModal from './Modal/ConfirmModal';
+import FormModal from './Modal/FormModal';
 
 export {
     Header,
@@ -22,6 +22,6 @@ export {
     PasswordStrength,
     Categories,
     Loading,
-    Modal,
-    UpdateModal,
+    ConfirmModal,
+    FormModal,
 };

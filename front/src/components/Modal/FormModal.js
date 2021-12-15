@@ -1,7 +1,7 @@
 import {Button, Modal, Form } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
-function UpdateModal({isOpen, onSubmitForm, onClickNegative, content, value}) {
+function CreateModal({isOpen, onSubmitForm, onClickNegative, content, children}) {
     return (
         <Modal
         size="small"
@@ -13,12 +13,11 @@ function UpdateModal({isOpen, onSubmitForm, onClickNegative, content, value}) {
             <Modal.Content>
                 <Form onSubmit={onSubmitForm}>
                     <Form.Field>
-                        <label>Nom</label>
-                        <input type="text" placeholder="Nom de la catégorie" defaultValue={value} name="name"/>
+                        {children}
                     </Form.Field>
                     <Modal.Actions style={{display: 'flex', justifyContent: 'flex-end'}}>
                         <Button positive type="submit">
-                            Modifier
+                            Valider
                         </Button>
                         <Button negative onClick={onClickNegative}>
                             Annuler
@@ -30,12 +29,11 @@ function UpdateModal({isOpen, onSubmitForm, onClickNegative, content, value}) {
     );  
 };
 
-UpdateModal.propTypes = {
+CreateModal.propTypes = {
     isOpen: PropTypes.bool.isRequired,
     onSubmitForm: PropTypes.func.isRequired,
     onClickNegative: PropTypes.func.isRequired,
     content: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
 }
 
-export default UpdateModal;
+export default CreateModal;

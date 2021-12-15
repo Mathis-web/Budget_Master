@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 function showModal({isOpen, onClickPositive, onClickNegative, content}) {
     return (
         <Modal
-        size="mini"
+        size="tiny"
         open={isOpen}
         >
             <Modal.Content>

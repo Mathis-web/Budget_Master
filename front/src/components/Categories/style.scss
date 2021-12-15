@@ -67,4 +67,34 @@
             }
         }
     }
+
+    &__create-btn {
+        border: none;
+        background-color: v.$blueColor;
+        width: 60%;
+        min-width: 300px;
+        display: block;
+        margin: v.$gutter * 3 auto v.$gutter auto;
+        color: white;
+        padding: 1rem;
+        font-weight: 600;
+        font-size: 1.3rem;
+        position: relative;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: 0.2s;
+
+        &:hover {
+            background-color: #002b70;
+        }
+
+        &::after {
+            content: "+";
+            font-size: 3rem;
+            position: absolute;
+            top: 5%;
+            right: 20px;
+            font-weight:normal;
+        }
+    }
 }

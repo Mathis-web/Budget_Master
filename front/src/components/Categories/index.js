@@ -4,7 +4,7 @@ import {toast} from 'react-toastify';
 
 import dataService from '../../services/dataService';
 import Category from './Category';
-import { Loading, Modal, UpdateModal } from '../index';
+import { Loading, ConfirmModal, FormModal } from '../index';
 
 function Categories() {
     const [userData, setUserData] = useState([]);
@@ -48,6 +48,13 @@ function Categories() {
         openModal();
     };
 
+    const handleOnClickCreateCategory = () => {
+        setCategoryInfo({
+            type: 'create'
+        });
+        openModal();
+    };
+
     const deleteCategory = async () => {
         closeModal();
         const result = await dataService.deleteOneCategory(categoryInfo.id);
@@ -61,6 +68,15 @@ function Categories() {
         const name = e.target.elements['name'].value;
         await dataService.updateOneCategory(categoryInfo.id, name);
         toast.success('Votre catégorie a bien été modifiée.');
+        getUserData();
+    }
+
+    const createCategory = async (e) => {
+        e.preventDefault();
+        closeModal();
+        const name = e.target.elements['name'].value;
+        await dataService.createOneCategory(name);
+        toast.success('Votre catégorie a bien été créée.');
         getUserData();
     }
 
@@ -80,7 +96,7 @@ function Categories() {
             </ul>
 
             {categoryInfo.type && categoryInfo.type === 'delete' && 
-                <Modal
+                <ConfirmModal
                     isOpen={isModalOpen} 
                     content="Etes-vous sur de vouloir supprimer cette catégorie ?"
                     onClickPositive={deleteCategory}
@@ -89,15 +105,33 @@ function Categories() {
             }
 
             {categoryInfo.type && categoryInfo.type === 'update' && 
-                <UpdateModal
+                <FormModal
                     isOpen={isModalOpen} 
                     content="Modifier une catégorie"
                     onSubmitForm={updateCategory}
                     onClickNegative={closeModal}
                     value={categoryInfo.name}
-                />
+                >
+                    <label>Nom</label>
+                    <input type="text" placeholder="Nom de la catégorie" defaultValue={categoryInfo.name} name="name"/>
+                </FormModal>
             }
 
+           {categoryInfo.type && categoryInfo.type === 'create' &&
+            <FormModal 
+                    isOpen={isModalOpen}
+                    content="Créer une catégorie"
+                    onSubmitForm={createCategory}
+                    onClickNegative={closeModal}
+                >
+                    <label>Nom</label>
+                    <input type="text" placeholder="Nom de la catégorie" name="name"/>
+                </FormModal>
+           }
+
+           <button className="categories__create-btn" onClick={handleOnClickCreateCategory}>
+               Créer une catégorie
+           </button>
         </main>
     );
 }
