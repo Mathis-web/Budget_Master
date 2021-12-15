@@ -5,7 +5,7 @@ import bin from '../../assets/garbage.png';
 import pen from '../../assets/pen.png'; 
 
 function Category({id, name, onClickDelete, onClickUpdate }) {
-    const handleOnCLickDelete = () => {
+    const handleOnClickDelete = () => {
         onClickDelete(id);
     };
 
@@ -20,19 +20,9 @@ function Category({id, name, onClickDelete, onClickUpdate }) {
             </Link>
             <div className="categories__list_li_img-container">
                 <img src={pen} alt="Modifier une catégorie" className="categories__list__li__icon" onClick={handleOnClickUpdate} />
-                <img src={bin} alt="Supprimer une catégorie" className="categories__list__li__icon" onClick={handleOnCLickDelete}/>
+                <img src={bin} alt="Supprimer une catégorie" className="categories__list__li__icon" onClick={handleOnClickDelete}/>
             </div>
         </li>
-
-        // <li key={id}>
-        //     <Link to={`/mesdepenses/${name}`} className="categories__list__li">
-        //         <p className="categories__list__li__name">{name}</p>
-        //         <div className="categories__list_li_img-container">
-        //             <img src={pen} alt="Modifier une catégorie" className="categories__list__li__icon" onClick={onCLickUpdate}/>
-        //             <img src={bin} alt="Supprimer une catégorie" className="categories__list__li__icon" onClick={onCLickDelete}/>
-        //         </div>
-        //     </Link>
-        // </li>
     );
 }
 

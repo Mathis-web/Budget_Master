@@ -4,7 +4,7 @@ import {toast} from 'react-toastify';
 
 import dataService from '../../services/dataService';
 import Category from './Category';
-import { Loading, Modal } from '../index';
+import { Loading, Modal, UpdateModal } from '../index';
 
 function Categories() {
     const [userData, setUserData] = useState([]);
@@ -53,6 +53,15 @@ function Categories() {
         const result = await dataService.deleteOneCategory(categoryInfo.id);
         toast.success(result);
         getUserData();
+    };
+
+    const updateCategory = async (e) => {
+        e.preventDefault();
+        closeModal();
+        const name = e.target.elements['name'].value;
+        await dataService.updateOneCategory(categoryInfo.id, name);
+        toast.success('Votre catégorie a bien été modifiée.');
+        getUserData();
     }
 
     if(isLoading) return <Loading /> 
@@ -76,6 +85,16 @@ function Categories() {
                     content="Etes-vous sur de vouloir supprimer cette catégorie ?"
                     onClickPositive={deleteCategory}
                     onClickNegative={closeModal}
+                />
+            }
+
+            {categoryInfo.type && categoryInfo.type === 'update' && 
+                <UpdateModal
+                    isOpen={isModalOpen} 
+                    content="Modifier une catégorie"
+                    onSubmitForm={updateCategory}
+                    onClickNegative={closeModal}
+                    value={categoryInfo.name}
                 />
             }
 

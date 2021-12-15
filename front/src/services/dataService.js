@@ -14,6 +14,11 @@ const dataService = {
     async deleteOneCategory(id) {
         const result = await API.delete(`${process.env.REACT_APP_BASE_URL_API}/api/category`, {data: {id}});
         return result.data;
+    },
+
+    async updateOneCategory(id, name) {
+        const result = await API.patch(`${process.env.REACT_APP_BASE_URL_API}/api/category`, {id, name});
+        return result.data;
     }
 }
 

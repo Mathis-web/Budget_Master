@@ -9,6 +9,7 @@ import PasswordStrength from './PasswordStrength';
 import Categories from './Categories';
 import Loading from './Loading';
 import Modal from './Modal';
+import UpdateModal from './Modal/UpdateModal';
 
 export {
     Header,
@@ -21,5 +22,6 @@ export {
     PasswordStrength,
     Categories,
     Loading,
-    Modal
+    Modal,
+    UpdateModal,
 };
