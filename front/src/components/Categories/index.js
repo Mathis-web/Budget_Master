@@ -1,30 +1,15 @@
 import './style.scss';
 import { useState, useEffect } from 'react';
 import {toast} from 'react-toastify';
+import PropTypes from 'prop-types';
 
 import dataService from '../../services/dataService';
 import Category from './Category';
 import { Loading, ConfirmModal, FormModal } from '../index';
 
-function Categories() {
-    const [userData, setUserData] = useState([]);
-    const [categories, setCategories] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+function Categories({categories, isLoading, getUserData}) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [categoryInfo, setCategoryInfo] = useState({});
-
-    useEffect(() => {
-        getUserData();
-    }, []);
-
-    const getUserData = async () => {
-        setIsLoading(true);
-        const allData = await dataService.getAllUserData();
-        const allCategories = await dataService.getAllCategories();
-        setUserData(allData);
-        setCategories(allCategories);
-        setIsLoading(false);
-    };
 
     const closeModal = () => setIsModalOpen(false);
     const openModal = () => setIsModalOpen(true);
@@ -134,6 +119,12 @@ function Categories() {
            </button>
         </main>
     );
+};
+
+Categories.propTypes = {
+    categories: PropTypes.array.isRequired,
+    isLoading :PropTypes.bool.isRequired,
+    getUserData :PropTypes.func.isRequired,
 }
 
 export default Categories;

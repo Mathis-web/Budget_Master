@@ -10,6 +10,7 @@ import Categories from './Categories';
 import Loading from './Loading';
 import ConfirmModal from './Modal/ConfirmModal';
 import FormModal from './Modal/FormModal';
+import Expenses from './Categories/Expenses';
 
 export {
     Header,
@@ -24,4 +25,5 @@ export {
     Loading,
     ConfirmModal,
     FormModal,
+    Expenses
 };

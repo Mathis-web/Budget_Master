@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 
 function Expense() {
     return (
-        <main className="categories">
-
-        </main>
+        <li className="expenses__list__li">
+    
+        </li>
     );
 }
 

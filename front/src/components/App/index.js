@@ -4,9 +4,10 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
-import { Header, Home, Footer, Login, Signup, Categories } from '../index';
+import { Header, Home, Footer, Login, Signup, Categories, Expenses } from '../index';
 
 import authService from '../../services/authService';
+import dataService from '../../services/dataService';
 import validator from '../../helpers/validator';
 
 function App() {
@@ -25,6 +26,8 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [strengthPassword, setStrengthPassword] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [expenses, setExpenses] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   const navigate = useNavigate();
   let passwordStrengthTimeout;
@@ -32,6 +35,19 @@ function App() {
   useEffect(() => {
     checkLoginStatus();
   }, []);
+
+  useEffect(() => {
+    if(isAuthenticated) getUserData();
+  }, [isAuthenticated])
+
+  const getUserData = async () => {
+    setIsLoading(true);
+    const allData = await dataService.getAllUserData();
+    const allCategories = await dataService.getAllCategories();
+    setExpenses(allData);
+    setCategories(allCategories);
+    setIsLoading(false);
+};
 
   const checkLoginStatus = async () => {
     const response = await authService.checkIfLoggedIn();
@@ -140,7 +156,16 @@ function App() {
             strengthPassword={strengthPassword}
            />      
           } />
-          <Route path="mesdepenses" element={<Categories />} />
+          <Route path="/mesdepenses" element={<Categories
+            categories={categories}
+            isLoading={isLoading}
+            getUserData={getUserData}
+           />
+          }/>
+
+          <Route path="/mesdepenses/:slug" element={<Expenses expenses={expenses} />} />
+            
+          
       </Routes>
       <Footer />
     </div>
