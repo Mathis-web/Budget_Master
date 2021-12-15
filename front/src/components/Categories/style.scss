@@ -10,7 +10,7 @@
         color: v.$blueColor;
         font-weight: bold;
         text-transform: uppercase;
-        margin: v.$gutter * 2 0 v.$gutter 0 !important;
+        margin: v.$gutter 0 !important;
         text-align: center;
     }
 
@@ -24,33 +24,24 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: v.$gutter * 1.5 v.$gutter * 2.5;
-            margin: v.$gutter auto;
+            padding: v.$gutter * 2 0;
+            margin: v.$gutter * 0.5 auto;
             height: 20px;
             background-color: v.$lightColor;
-            width: 80%;
-            min-width: 300px;
+            width: 100%;
             border: 1px solid v.$blueColor;
-            border-radius: 8px;
-            position: relative;
-            z-index: 10;
+            border-radius: 10px;
+
+            &__img-container {
+                padding-right: v.$gutter * 1.5;
+            }
 
             &__name {
                 flex: 2;
                 font-size: 1.2rem;
                 text-transform: uppercase;
                 font-weight: 500;
-
-                // use after in order to make a bigger clickable zone for the link
-                &::after {
-                    content: "";
-                    padding: 10px;
-                    position: absolute;
-                    width: 50%;
-                    height: 100%;
-                    left: 0;
-                    top: 0;
-                }
+                padding: 1.5rem;
             }
 
             &__icon {
@@ -95,6 +86,56 @@
             top: 5%;
             right: 20px;
             font-weight:normal;
+        }
+    }
+}
+
+.expenses {
+    margin: 0 auto;
+    flex: 1;
+    width: 100%;
+
+    &__title {
+        font-size: v.$gutter * 2;
+        color: v.$blueColor;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin: v.$gutter 0 !important;
+        text-align: center;
+    }
+
+    &__list {
+        &__li {
+            display: flex;
+            padding: v.$gutter v.$gutter * 2;
+            background-color: v.$lightColor;
+            border: 1px solid v.$blueColor;
+            border-radius: 7px;
+            margin: v.$gutter * 0.8 0;
+
+            &__left {
+                flex: 1.5;
+            }
+
+            &__right {
+                display: flex;
+
+                &__price {
+                    margin-bottom: v.$gutter *0.7;
+                    font-size: 1.7rem;
+                    font-weight: bold;
+                }
+
+                & img {
+                    display: block;
+                    transition: 0.2s;
+                    cursor: pointer;
+
+                    &:hover {
+                        transform: scale(1.1);
+                    }
+                }
+            }
         }
     }
 }
