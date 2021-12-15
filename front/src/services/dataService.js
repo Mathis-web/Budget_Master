@@ -24,7 +24,23 @@ const dataService = {
     async createOneCategory(name) {
         const result = await API.post(`${process.env.REACT_APP_BASE_URL_API}/api/category`, {name});
         return result.data;
-    }
+    },
+
+
+    async deleteOneExpense(id) {
+        const result = await API.delete(`${process.env.REACT_APP_BASE_URL_API}/api/expense`, {data: {id}});
+        return result.data;
+    },
+
+    async updateOneExpense(id, description, price) {
+        const result = await API.patch(`${process.env.REACT_APP_BASE_URL_API}/api/expense`, {id, description, price});
+        return result.data;
+    },
+
+    async createOneExpense(description) {
+        const result = await API.post(`${process.env.REACT_APP_BASE_URL_API}/api/expense`, {description});
+        return result.data;
+    },
 }
 
 export default dataService;
