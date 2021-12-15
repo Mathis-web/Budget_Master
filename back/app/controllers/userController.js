@@ -46,7 +46,7 @@ const userController = {
     async getUserData(req, res, next) {
         try {
             const user = new User({id: req.user.id});
-            const data = await user.data();
+            const data = await user.getAllData();
             res.status(200).json(data);
         } catch (error) {
             next(new ErrorHandler(500, 'Une erreur est survenue lors de la récupération de vos dépenses. Veuillez réessayer.'));
@@ -59,6 +59,16 @@ const userController = {
             res.status(200).json(true);
         } else {
             res.status(200).json(false);
+        }
+    },
+
+    async getAllCategories(req, res, next) {
+        try {
+            const user = new User({id: req.user.id});
+            const categories = await user.getAllCategories();
+            res.status(200).json(categories);
+        } catch (error) {
+            next(error);
         }
     }
 }

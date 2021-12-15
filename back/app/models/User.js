@@ -70,7 +70,7 @@ class User {
         throw new ErrorHandler(500, 'Mauvais email ou mot de passe.');
     };
 
-    async data() {
+    async getAllData() {
         const query = {
             text: `
                 SELECT 
@@ -90,6 +90,19 @@ class User {
         const { rows } = await db.query(query);
         return rows;
     };
+
+    async getAllCategories() {
+        const query = {
+            text: `
+                SELECT
+                    id, name
+                FROM category WHERE user_id = $1
+            `,
+            values: [this.id]
+        };
+        const {rows: categories} = await db.query(query);
+        return categories;
+    }
 }
 
 module.exports = User;

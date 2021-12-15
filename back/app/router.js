@@ -15,6 +15,7 @@ router.post('/api/login', userController.login);
 router.get('/api/getall', authenticateAccessToken, userController.getUserData);
 router.delete('/api/logout', authenticateAccessToken, tokenController.deleteOne);
 router.get('/api/isloggedin', userController.isLoggedIn);
+router.get('/api/categories', authenticateAccessToken, userController.getAllCategories);
 
 router.post('/api/category', authenticateAccessToken, categoryController.createOne);
 router.patch('/api/category', authenticateAccessToken, categoryController.updateOne);
