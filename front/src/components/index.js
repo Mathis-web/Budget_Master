@@ -7,6 +7,8 @@ import Field from './Field';
 // import Message from './Message';
 import PasswordStrength from './PasswordStrength';
 import Categories from './Categories';
+import Loading from './Loading';
+import Modal from './Modal';
 
 export {
     Header,
@@ -17,5 +19,7 @@ export {
     Field,
     // Message,
     PasswordStrength,
-    Categories
+    Categories,
+    Loading,
+    Modal
 };
