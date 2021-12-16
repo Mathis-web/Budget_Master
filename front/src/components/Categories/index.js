@@ -11,6 +11,8 @@ function Categories({categories, isLoading, getUserData}) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [categoryInfo, setCategoryInfo] = useState({});
 
+    useEffect(() => {if(categories.length === 0) getUserData()}, [])
+
     const closeModal = () => setIsModalOpen(false);
     const openModal = () => setIsModalOpen(true);
 
@@ -115,7 +117,7 @@ function Categories({categories, isLoading, getUserData}) {
            }
 
            <button className="categories__create-btn" onClick={handleOnClickCreateCategory}>
-               Créer une catégorie
+               Ajouter une catégorie
            </button>
         </main>
     );

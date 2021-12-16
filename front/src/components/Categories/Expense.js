@@ -3,7 +3,16 @@ import PropTypes from 'prop-types';
 import croix from '../../assets/croix.png';
 import pen from '../../assets/draw.png';
 
-function Expense({description, price, createdat}) {
+function Expense({expenseid, description, price, createdat, onClickUpdate, onClickDelete}) {
+
+    const handleOnCLickUpdate = () => {
+        onClickUpdate(expenseid, description, price);
+    };
+
+    const handleOnClickDelete = () => {
+        onClickDelete(expenseid);
+    };
+
     return (
         <li className="expenses__list__li">
             <div className="expenses__list__li__left">
@@ -15,8 +24,8 @@ function Expense({description, price, createdat}) {
                     <div className="expenses__list__li__right__date">{createdat}</div>
                 </div>
                 <div>
-                    <img src={pen} alt="Modifier une dépense" style={{marginBottom: '0.7rem'}}/>
-                    <img src={croix} alt="Supprimer une dépense" />
+                    <img src={pen} alt="Modifier une dépense" style={{marginBottom: '0.7rem'}} onClick={handleOnCLickUpdate} />
+                    <img src={croix} alt="Supprimer une dépense" onClick={handleOnClickDelete} />
                 </div>
             </div>
         </li>
@@ -24,7 +33,11 @@ function Expense({description, price, createdat}) {
 }
 
 Expense.propTypes = {
-
+    description: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    createdat: PropTypes.string.isRequired,
+    onClickUpdate: PropTypes.func.isRequired,
+    onClickDelete: PropTypes.func.isRequired,
 }
 
 export default Expense;

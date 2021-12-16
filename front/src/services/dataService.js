@@ -32,13 +32,13 @@ const dataService = {
         return result.data;
     },
 
-    async updateOneExpense(id, description, price) {
-        const result = await API.patch(`${process.env.REACT_APP_BASE_URL_API}/api/expense`, {id, description, price});
+    async updateOneExpense(id, description, price, categoryId) {
+        const result = await API.patch(`${process.env.REACT_APP_BASE_URL_API}/api/expense`, {id, description, price, categoryId});
         return result.data;
     },
 
-    async createOneExpense(description) {
-        const result = await API.post(`${process.env.REACT_APP_BASE_URL_API}/api/expense`, {description});
+    async createOneExpense(description, price, categoryId) {
+        const result = await API.post(`${process.env.REACT_APP_BASE_URL_API}/api/expense`, {description, price, categoryId});
         return result.data;
     },
 }

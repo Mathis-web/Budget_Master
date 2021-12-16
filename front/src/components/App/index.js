@@ -163,9 +163,13 @@ function App() {
            />
           }/>
 
-          <Route path="/mesdepenses/:slug" element={<Expenses expenses={expenses} />} />
+          <Route path="/mesdepenses/:slug" element={<Expenses 
+            expenses={expenses}
+            getUserData={getUserData}
+            isLoading={isLoading}
+            categories={categories}
+             />} />
             
-          
       </Routes>
       <Footer />
     </div>

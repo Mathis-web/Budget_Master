@@ -10,7 +10,7 @@
         color: v.$blueColor;
         font-weight: bold;
         text-transform: uppercase;
-        margin: v.$gutter 0 !important;
+        margin: v.$gutter * 2 0 !important;
         text-align: center;
     }
 
@@ -100,7 +100,7 @@
         color: v.$blueColor;
         font-weight: bold;
         text-transform: uppercase;
-        margin: v.$gutter 0 !important;
+        margin: v.$gutter * 2 0 !important;
         text-align: center;
     }
 
@@ -114,7 +114,7 @@
             margin: v.$gutter * 0.8 0;
 
             &__left {
-                flex: 1.5;
+                flex: 1;
             }
 
             &__right {
@@ -136,6 +136,16 @@
                     }
                 }
             }
+        }
+    }
+
+    &__total {
+        font-size: 1.2rem;
+        text-align: center;
+        margin-top: v.$gutter * 2;
+        & span {
+            font-size: 1.7rem;
+            font-weight: bold;
         }
     }
 }
