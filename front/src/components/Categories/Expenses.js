@@ -133,12 +133,12 @@ function Expenses({categories, expenses, getUserData, isLoading}) {
            {expenseInfo.type && expenseInfo.type === 'create' &&
             <FormModal 
                 isOpen={isModalOpen}
-                content="Créer une catégorie"
+                content="Créer une dépense"
                 onSubmitForm={createExpense}
                 onClickNegative={closeModal}
             >
                 <label>Description</label>
-                <input type="text" placeholder="Description de la catégorie" name="description"/>
+                <input type="text" placeholder="Description de la dépense" name="description"/>
                 <label>Prix</label>
                 <input type="number" name="price" placeholder="Prix de la dépense" />
             </FormModal>

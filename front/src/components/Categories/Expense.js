@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import croix from '../../assets/croix.png';
 import pen from '../../assets/draw.png';
 
+import convertPostgresDate from '../../helpers/datePostgres';
+
 function Expense({expenseid, description, price, createdat, onClickUpdate, onClickDelete}) {
 
     const handleOnCLickUpdate = () => {
@@ -13,15 +15,17 @@ function Expense({expenseid, description, price, createdat, onClickUpdate, onCli
         onClickDelete(expenseid);
     };
 
+    const date = convertPostgresDate(createdat);
+
     return (
         <li className="expenses__list__li">
             <div className="expenses__list__li__left">
                 <p className="expenses__list__li__left_description">{description}</p>
             </div>
             <div className="expenses__list__li__right">
-                <div style={{marginRight: '2rem'}}>
+                <div style={{marginRight: '2.5rem'}}>
                     <div className="expenses__list__li__right__price">{price}€</div>
-                    <div className="expenses__list__li__right__date">{createdat}</div>
+                    <div className="expenses__list__li__right__date">{date}</div>
                 </div>
                 <div>
                     <img src={pen} alt="Modifier une dépense" style={{marginBottom: '0.7rem'}} onClick={handleOnCLickUpdate} />

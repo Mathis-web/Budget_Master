@@ -41,12 +41,17 @@ function App() {
   }, [isAuthenticated])
 
   const getUserData = async () => {
-    setIsLoading(true);
-    const allData = await dataService.getAllUserData();
-    const allCategories = await dataService.getAllCategories();
-    setExpenses(allData);
-    setCategories(allCategories);
-    setIsLoading(false);
+    try {
+      setIsLoading(true);
+      const allData = await dataService.getAllUserData();
+      const allCategories = await dataService.getAllCategories();
+      setExpenses(allData);
+      setCategories(allCategories);
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsLoading(false);
+    }
 };
 
   const checkLoginStatus = async () => {

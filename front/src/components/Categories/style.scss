@@ -104,6 +104,11 @@
         text-align: center;
     }
 
+    &__text {
+        text-align: center;
+        font-size: 1.1rem;
+    }
+
     &__list {
         &__li {
             display: flex;
