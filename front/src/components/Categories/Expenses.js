@@ -7,6 +7,7 @@ import Expense from './Expense';
 import { FormModal, ConfirmModal, Loading } from '../index';
 import dataService from '../../services/dataService';
 import {filterExpenses, countTotal, findCategoryId} from '../../selectors/index';
+import handleError from '../../services/handleError';
 
 function Expenses({categories, expenses, getUserData, isLoading}) {
 
@@ -55,29 +56,41 @@ function Expenses({categories, expenses, getUserData, isLoading}) {
 
     const deleteExpense = async () => {
         closeModal();
-        const result = await dataService.deleteOneExpense(expenseInfo.id);
-        toast.success(result);
-        getUserData();
+        try {
+            const result = await dataService.deleteOneExpense(expenseInfo.id);
+            toast.success(result);
+            getUserData();
+        } catch (error) {
+            handleError();
+        }
     };
 
     const updateExpense = async (e) => {
         e.preventDefault();
         closeModal();
-        const description = e.target.elements['description'].value;
-        const price = e.target.elements['price'].value;
-        await dataService.updateOneExpense(expenseInfo.id, description, price, categoryId);
-        toast.success('Votre dépense a bien été modifiée.');
-        getUserData();
+        try {
+            const description = e.target.elements['description'].value;
+            const price = e.target.elements['price'].value;
+            await dataService.updateOneExpense(expenseInfo.id, description, price, categoryId);
+            toast.success('Votre dépense a bien été modifiée.');
+            getUserData();
+        } catch (error) {
+            handleError();
+        }
     };
 
     const createExpense = async (e) => {
         e.preventDefault();
         closeModal();
-        const description = e.target.elements['description'].value;
-        const price = e.target.elements['price'].value;
-        await dataService.createOneExpense(description, price, categoryId);
-        toast.success('Votre dépense a bien été créée.');
-        getUserData();
+        try {
+            const description = e.target.elements['description'].value;
+            const price = e.target.elements['price'].value;
+            await dataService.createOneExpense(description, price, categoryId);
+            toast.success('Votre dépense a bien été créée.');
+            getUserData();
+        } catch (error) {
+            handleError();
+        }
     };
 
     if(isLoading) return <Loading />;

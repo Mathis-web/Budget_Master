@@ -21,8 +21,31 @@ const authenticateRefreshToken = (req, res, next) => {
     });
 }
 
+const decodeToken = (req, res, next) => {
+    if(req.cookies && req.cookies.accessToken) {
+        const accessToken = req.cookies.accessToken;
+        if(!accessToken) {
+            req.isTokenExpired = false;
+            next();
+        }
+        jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, decodedToken) => {
+            if(err) {
+                if(err.message === 'jwt expired'){
+                    req.isTokenExpired = true;
+                    return next();
+                }
+                else return res.status(403).send('Invalid token');
+            }
+            req.isTokenExpired = false;
+            req.token = decodedToken;
+            next();
+        });
+    }
+}
+
 
 module.exports = {
     authenticateAccessToken,
-    authenticateRefreshToken
+    authenticateRefreshToken,
+    decodeToken
 };

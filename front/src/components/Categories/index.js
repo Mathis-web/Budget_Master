@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import dataService from '../../services/dataService';
 import Category from './Category';
 import { Loading, ConfirmModal, FormModal } from '../index';
+import handleError from '../../services/handleError';
 
 function Categories({categories, isLoading, getUserData}) {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,27 +45,39 @@ function Categories({categories, isLoading, getUserData}) {
 
     const deleteCategory = async () => {
         closeModal();
-        const result = await dataService.deleteOneCategory(categoryInfo.id);
-        toast.success(result);
-        getUserData();
+        try {
+            const result = await dataService.deleteOneCategory(categoryInfo.id);
+            toast.success(result);
+            getUserData();
+        } catch (error) {
+            handleError(error);
+        }
     };
 
     const updateCategory = async (e) => {
         e.preventDefault();
         closeModal();
-        const name = e.target.elements['name'].value;
-        await dataService.updateOneCategory(categoryInfo.id, name);
-        toast.success('Votre catégorie a bien été modifiée.');
-        getUserData();
+        try {
+            const name = e.target.elements['name'].value;
+            await dataService.updateOneCategory(categoryInfo.id, name);
+            toast.success('Votre catégorie a bien été modifiée.');
+            getUserData();
+        } catch (error) {
+            handleError(error);
+        }
     }
 
     const createCategory = async (e) => {
         e.preventDefault();
         closeModal();
-        const name = e.target.elements['name'].value;
-        await dataService.createOneCategory(name);
-        toast.success('Votre catégorie a bien été créée.');
-        getUserData();
+        try {
+            const name = e.target.elements['name'].value;
+            await dataService.createOneCategory(name);
+            toast.success('Votre catégorie a bien été créée.');
+            getUserData();
+        } catch (error) {
+            handleError(error);
+        }
     }
 
     if(isLoading) return <Loading /> 

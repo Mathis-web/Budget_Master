@@ -7,6 +7,9 @@ const tokenController = {
             const token = new Token({name: req.user.token, userId: req.user.id});
             await token.checkIfExists();
             const accessToken = generateAccessToken({id: req.user.id, email: req.user.email});
+            // replace expired token by a new one
+            res.clearCookie('accessToken');
+            res.cookie('accessToken', accessToken, {httpOnly: true, maxAge: 2629800000});
             res.status(200).send({accessToken});
         } catch (error) {
             next(error);

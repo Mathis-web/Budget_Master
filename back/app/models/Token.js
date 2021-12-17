@@ -55,7 +55,7 @@ class Token {
             values: [this.userId]
         };
         const {rows: token} = await db.query(query);
-        if(!token[0] || token[0].name !== this.name) throw new ErrorHandler(403, 'Token non valide');
+        if(!token[0] || token[0].name !== this.name) throw new ErrorHandler(403, 'Token introuvable dans la base de données');
         return new Token(token[0]);
     }
 

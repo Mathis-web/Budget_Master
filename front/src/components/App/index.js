@@ -1,6 +1,6 @@
 import './style.css';
 
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
@@ -9,6 +9,7 @@ import { Header, Home, Footer, Login, Signup, Categories, Expenses } from '../in
 import authService from '../../services/authService';
 import dataService from '../../services/dataService';
 import validator from '../../helpers/validator';
+import handleError from '../../services/handleError';
 
 function App() {
   const userInputInitialState = {
@@ -48,15 +49,20 @@ function App() {
       setExpenses(allData);
       setCategories(allCategories);
     } catch (error) {
-      console.log(error)
+      handleError('Une erreur est survenue lors de la récupération de vos données. Veuillez réessayer.');
     } finally {
       setIsLoading(false);
     }
 };
 
   const checkLoginStatus = async () => {
-    const response = await authService.checkIfLoggedIn();
-    setIsAuthenticated(response.data);
+    try {
+      const response = await authService.checkIfLoggedIn();
+      setIsAuthenticated(response.data);
+      if(response.data) navigate('/mesdepenses');
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   const resetDefaultValues = () => {
@@ -66,9 +72,14 @@ function App() {
   }
 
   const handleLogout = async () => {
-    const result = await authService.logout();
-    toast.success(result);
-    setIsAuthenticated(false);
+    try {
+      const result = await authService.logout();
+      toast.success(result);
+      setIsAuthenticated(false);
+      return navigate('/');
+    } catch (error) {
+      handleError();
+    }
   }
 
   const onChangeInput = (name, value, form) => {
@@ -96,11 +107,12 @@ function App() {
     .then(res => {
       setIsAuthenticated(true);
       toast.success('Vous êtes connecté.');
+      setIsLoading(true);
       navigate('/mesdepenses');
     })
     .catch(err => {
       if(err.response && err.response.data) toast.error(err.response.data)
-      else toast.error('Une erreur s\'est produite.')
+      else handleError()
     })
     .finally(() => {
       resetDefaultValues();
@@ -112,12 +124,12 @@ function App() {
     const isEmailValid = validator.email(userInput.signup.email);
     const arePasswordsEqual = validator.bothPassword(userInput.signup.password, userInput.signup.confirmPassword);
     if(!isEmailValid) {
-      toast.error('Format d\'email non valide.')
+      handleError('Format d\'email non valide.')
       setIsLoading(false);  
       return;
     }
     if(!arePasswordsEqual) {
-      toast.error('Les mots de passes sont diffférents.')
+      handleError('Les mots de passes sont diffférents.')
       setIsLoading(false);  
       return;
     }
@@ -129,7 +141,7 @@ function App() {
     })
     .catch(err => {
       if(err.response && err.response.data) toast.error(err.response.data)
-      else toast.error('Une erreur s\'est produite.')
+      else handleError();
     })
     .finally(() => {
       resetDefaultValues();

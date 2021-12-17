@@ -16,7 +16,7 @@ function Header({isAuthenticated, onClickLogout}) {
                     {isAuthenticated
                         ? (<>
                             <Link to="/mesdepenses" className="header__nav__li">Mes dépenses</Link>
-                            <Link to="/" className="header__nav__li" onClick={onClickLogout}>Se déconnecter</Link>
+                            <p className="header__nav__li" onClick={onClickLogout}>Se déconnecter</p>
                         </>)
                         : <Link to="/connexion" className="header__nav__li">Se connecter</Link>
                     }
