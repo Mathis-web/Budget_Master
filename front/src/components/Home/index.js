@@ -1,4 +1,6 @@
 import './style.scss';
+import Slider from './Slider';
+import {Link} from 'react-router-dom';
 
 function Home() {
     return (
@@ -10,10 +12,9 @@ function Home() {
                    <li className="home__description__list__step">2. Créez une ou plusieurs catégories</li> 
                    <li className="home__description__list__step">3. Ajoutez des dépenses dans une catégorie</li> 
                 </ol>
+                <Link to="/connexion" className="home__link">Je me connecte</Link>
             </div>
-            <div className="home__slides">
-
-            </div>
+            <Slider />
         </main>
     );
 };
