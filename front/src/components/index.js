@@ -11,6 +11,7 @@ import Loading from './Loading';
 import ConfirmModal from './Modal/ConfirmModal';
 import FormModal from './Modal/FormModal';
 import Expenses from './Categories/Expenses';
+import RequireAuth from './RequireAuth';
 
 export {
     Header,
@@ -25,5 +26,6 @@ export {
     Loading,
     ConfirmModal,
     FormModal,
-    Expenses
+    Expenses,
+    RequireAuth
 };

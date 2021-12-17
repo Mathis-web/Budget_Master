@@ -1,10 +1,10 @@
 import './style.css';
 
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
-import { Header, Home, Footer, Login, Signup, Categories, Expenses } from '../index';
+import { Header, Home, Footer, Login, Signup, Categories, Expenses, RequireAuth } from '../index';
 
 import authService from '../../services/authService';
 import dataService from '../../services/dataService';
@@ -173,19 +173,26 @@ function App() {
             strengthPassword={strengthPassword}
            />      
           } />
-          <Route path="/mesdepenses" element={<Categories
-            categories={categories}
-            isLoading={isLoading}
-            getUserData={getUserData}
-           />
+          <Route path="/mesdepenses" element={
+            <RequireAuth isAuthenticated={isAuthenticated}>
+              <Categories
+                categories={categories}
+                isLoading={isLoading}
+                getUserData={getUserData}
+             />
+            </RequireAuth>
           }/>
 
-          <Route path="/mesdepenses/:slug" element={<Expenses 
-            expenses={expenses}
-            getUserData={getUserData}
-            isLoading={isLoading}
-            categories={categories}
-             />} />
+          <Route path="/mesdepenses/:slug" element={
+            <RequireAuth isAuthenticated={isAuthenticated} >
+              <Expenses 
+                expenses={expenses}
+                getUserData={getUserData}
+                isLoading={isLoading}
+                categories={categories}
+              />
+            </RequireAuth>
+          } />
             
       </Routes>
       <Footer />

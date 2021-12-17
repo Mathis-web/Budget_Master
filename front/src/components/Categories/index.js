@@ -50,7 +50,7 @@ function Categories({categories, isLoading, getUserData}) {
             toast.success(result);
             getUserData();
         } catch (error) {
-            handleError(error);
+            handleError();
         }
     };
 
@@ -63,7 +63,7 @@ function Categories({categories, isLoading, getUserData}) {
             toast.success('Votre catégorie a bien été modifiée.');
             getUserData();
         } catch (error) {
-            handleError(error);
+            handleError();
         }
     }
 
@@ -76,7 +76,7 @@ function Categories({categories, isLoading, getUserData}) {
             toast.success('Votre catégorie a bien été créée.');
             getUserData();
         } catch (error) {
-            handleError(error);
+            handleError();
         }
     }
 
