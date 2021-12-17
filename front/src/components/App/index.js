@@ -1,6 +1,6 @@
-import './style.css';
+import './style.scss';
 
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
@@ -106,12 +106,11 @@ function App() {
     authService.login(userInput.login.email, userInput.login.password)
     .then(res => {
       setIsAuthenticated(true);
-      toast.success('Vous êtes connecté.');
-      setIsLoading(true);
       navigate('/mesdepenses');
+      toast.success('Vous êtes connecté.');
     })
     .catch(err => {
-      if(err.response && err.response.data) toast.error(err.response.data)
+      if(err.response && err.response.data) handleError(err.response.data)
       else handleError()
     })
     .finally(() => {
@@ -140,7 +139,7 @@ function App() {
 
     })
     .catch(err => {
-      if(err.response && err.response.data) toast.error(err.response.data)
+      if(err.response && err.response.data) handleError(err.response.data)
       else handleError();
     })
     .finally(() => {

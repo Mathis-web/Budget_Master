@@ -154,3 +154,14 @@
         }
     }
 }
+
+@media all and (max-width: v.$firstBreakpoint) {
+    .categories, .expenses {
+        width: 70%;
+        min-width: 300px;
+    }
+
+    img {
+        height: 20px;
+    }
+}

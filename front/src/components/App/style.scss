@@ -1,0 +1,25 @@
+@use '../../styles/vars' as v;
+
+.app {
+    margin: 0 auto;
+    width: 80%;
+    max-width: 1100px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+@media all and (max-width: v.$firstBreakpoint) {
+    html {
+        font-size: 14px !important;
+    }
+
+    .app {
+        width: 100%;
+    }
+
+    h2 {
+        font-size: 1.5rem !important;
+    }
+}
