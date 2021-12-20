@@ -7,11 +7,25 @@ const PORT = process.env.PORT || 4000;
 
 const router = require('./app/router');
 
+// const corsOptions = {
+//     origin: 'http://localhost:3000',
+//     optionsSuccessStatus: 200,
+//     credentials: true,
+// };
+
 const corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: 'https://budget-master.netlify.app',
     optionsSuccessStatus: 200,
     credentials: true,
 };
+
+// const corsOptions = {
+//     origin: 'https://masterbudget.herokuapp.com',
+//     optionsSuccessStatus: 200,
+//     credentials: true,
+// };
+
+app.set("trust proxy", 1);
 
 app.use(cors(corsOptions));
 app.use(cookieParser());

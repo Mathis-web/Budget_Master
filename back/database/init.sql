@@ -69,7 +69,7 @@ VALUES
 	('restaurants', 50.56, 6);
 
 /* allow budget_master user to perform queries on the database */
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO budget_master;
+-- GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO budget_master;
 
 ALTER TABLE "user" RENAME CONSTRAINT "user_email_key" TO "user_email_unique";
 ALTER TABLE "token" RENAME CONSTRAINT "token_user_id_key" TO "token_user_id_unique";

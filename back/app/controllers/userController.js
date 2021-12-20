@@ -39,6 +39,7 @@ const userController = {
             res.cookie('refreshToken', refreshTokenInfos.name, {httpOnly: true, maxAge: 2629800000});
             res.status(200).send({accessToken, refreshToken: refreshTokenInfos.name});
         } catch (error) {
+            console.log(error)
             next(error)
         }
     },
