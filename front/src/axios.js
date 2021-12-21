@@ -18,7 +18,7 @@ const visitorInstance = axios.create({
 });
 
 userInstance.interceptors.request.use(function (config) {
-    config.headers['Access-Control-Allow-Origin'] = 'https://budget-master.netlify.app';
+    config.headers['Access-Control-Allow-Origin'] = 'https://budgetmaster.mathispati.com';
     config.headers['Access-Control-Allow-Credentials'] = 'true';
     return config
 }, function (error) {

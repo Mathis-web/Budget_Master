@@ -14,16 +14,10 @@ const router = require('./app/router');
 // };
 
 const corsOptions = {
-    origin: 'https://budget-master.netlify.app',
+    origin: 'https://budgetmaster.mathispati.com',
     optionsSuccessStatus: 200,
     credentials: true,
 };
-
-// const corsOptions = {
-//     origin: 'https://masterbudget.herokuapp.com',
-//     optionsSuccessStatus: 200,
-//     credentials: true,
-// };
 
 app.set("trust proxy", 1);
 
